@@ -82,6 +82,8 @@ router.get('/', requireAdmin, async (_req, res) => {
     res.json(rows)
 })
 
+
+
 export default router
 
 // donc ici je cree mes routes pour l'user dans server.ts j'utilise es rout de user dans = app.use('/api/users', usersRouter) 
