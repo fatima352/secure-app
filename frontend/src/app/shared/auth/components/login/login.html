@@ -1,0 +1,17 @@
+<form [formGroup]="loginForm" (ngSubmit)="submit()">
+    <label for="login"> Login : </label>
+    <input id="login" formControlName="login" type="text">
+
+    <label for="password"> Password : </label>
+    <input id="password" formControlName="password" type="password">
+    <button type="submit">Se connecter</button>
+</form>
+<div class="msg">
+    @if(authsvc.isLoading()){
+        <p>Chargement ... </p>
+    }
+
+    @if(authsvc.error()){
+        <p>{{authsvc.error()}}</p>
+    }
+</div>
