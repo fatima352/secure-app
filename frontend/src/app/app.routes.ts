@@ -8,42 +8,16 @@ import { Register } from './shared/auth/components/register/register';
 import { NotFound } from './pages/not-found/not-found';
 
 export const routes: Routes = [
-    {
-        path: 'login',
-        component: Login,
-        title : 'Login'
-    }, 
-    {
-        path: 'home', 
-        component: Home,
-        canActivate: [authGuard],
-        title: 'Home'
-    },
-    {
-        path: 'admin',
-        component: AdminComponent,
-        canActivate: [authGuard, adminGuard]
-    },
-    { 
-        path: '', 
-        redirectTo: 'home',
-        pathMatch: 'full' 
-    }, 
-    // {
-    //     path:'/register',
-    //     component: Register,
-    //     title : 'Register'
-    // },
-    // {
-    //     path:'/logout',
-    //     component: Logout
-    // },
-    { 
-        path: '**', 
-        // component: NotFound
-        redirectTo:'home'
-    }
+//   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
-
+  { path: 'login', component: Login, title: 'Login' },
+  
+  { path: 'home', component: Home, canActivate: [authGuard], title: 'Home' },
+  
+  { path: 'admin', component: AdminComponent, canActivate: [authGuard, adminGuard] },
+  
+  { path: 'register', component: Register, title: 'Register' },
+  
+//   { path: '**', component: NotFound }
 
 ];

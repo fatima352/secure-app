@@ -1,61 +1,81 @@
-/* --- En-tête global --- */
 header {
-  background: #1e293b;
-  color: white;
+  background: #1e293b; /* bleu-gris foncé */
+  color: #f8fafc;
   padding: 1rem 2rem;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
-/* --- Barre de navigation --- */
+
 nav {
   display: flex;
-  justify-content: center;
   align-items: center;
-  gap: 2rem;
+  gap: 1.5rem;
 }
 
-/* --- Liens de navigation --- */
-nav a {
-  color: #e2e8f0;
+
+.nameuser {
+  font-weight: 600;
+  font-size: 1.05rem;
+  color: #f1f5f9;
   text-decoration: none;
-  font-weight: 500;
-  font-size: 1.1rem;
   position: relative;
-  padding-bottom: 0.3rem;
   transition: color 0.3s;
 }
 
-/* --- Effet au survol --- */
-nav a:hover {
-  color: #60a5fa;
+.nameuser::before {
+  content: "👤";
+  margin-right: 0.4rem;
+  font-size: 1rem;
 }
 
-/* --- Indicateur du lien actif --- */
-nav a.active {
-  color: #3b82f6;
+.nameuser:hover {
+  color: #93c5fd;
 }
 
-nav a.active::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -4px;
-  width: 100%;
-  height: 2px;
-  background: #3b82f6;
-  border-radius: 1px;
+/* === Bouton Logout === */
+button {
+  background: #ef4444; /* rouge doux */
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s;
 }
 
-/* --- Contenu principal rendu par le router-outlet --- */
+button:hover {
+  background: #dc2626;
+  transform: scale(1.03);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+/* === Responsive (mobile) === */
+@media (max-width: 600px) {
+  header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  nav {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  button {
+    padding: 0.5rem 0.8rem;
+  }
+}
+
+/* === Router outlet === */
 router-outlet {
   display: block;
   margin-top: 2rem;
-}
-
-/* --- Responsive --- */
-@media (max-width: 600px) {
-  nav {
-    flex-direction: column;
-    gap: 1rem;
-  }
 }
