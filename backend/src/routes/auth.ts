@@ -11,6 +11,7 @@ const router = Router()
 router.post('/login', async (req, res) => {
     // --- LOGIN ---
     const { login, password } = req.body
+    console.log(`🔐 Tentative de login pour: '${login}'`)
 
     if (!login || !password) {
         // si pas de login ou password dans la requête => ERREUR : fin du login
@@ -20,10 +21,16 @@ router.post('/login', async (req, res) => {
     const { rows } = await pool.query('SELECT * FROM users WHERE login=$1', [login])
     // on récupère le user dans la BD
     const user = rows[0]
-    if (!user) return res.status(401).json({ error: 'Utilisateur inconnu' }) // pas dans la base => ERREUR : fin du login
-    
+    if (!user) {
+        console.log(`❌ Utilisateur '${login}' introuvable en base`)
+        return res.status(401).json({ error: 'Utilisateur inconnu' }) // pas dans la base => ERREUR : fin du login
+    }
     const match = await bcrypt.compare(password, user.password_hash) // on vérifie le password
-    if (!match) return res.status(401).json({ error: 'Mot de passe incorrect' })// si pas de match => ERREUR : fin du login
+    if (!match) {
+        console.log(`❌ Mot de passe incorrect pour '${login}'`)
+        return res.status(401).json({ error: 'Mot de passe incorrect' })// si pas de match => ERREUR : fin du login
+    }
+    console.log(`✅ Authentification réussie pour '${login}' (id=${user.id})`)
     
     const accessToken = createAccessToken({ id: user.id, role: user.role }) // création du token d'accès
     const refreshToken = createRefreshToken({ id: user.id, role: user.role }) // création du refresh token

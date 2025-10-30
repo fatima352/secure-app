@@ -26,12 +26,12 @@ export class AuthService {
 
   // connexion
 
-  login(login: string, passeword : string){
+  login(login: string, password : string){
     this._isLoading.set(true)
     this._error.set(null)
     this.http.post<{user : UserDto }>(
       `${environment.apiUrl}/auth/login`,
-      {login, passeword},
+      {login, password},
       {withCredentials : true}
     ).pipe(
       tap(res=> {
@@ -71,7 +71,7 @@ export class AuthService {
     )
     .subscribe()
   }
-
+//(cookie httpOnly) 
   whoami(){
     this._isLoading.set(true)
     this._error.set(null)
@@ -86,7 +86,7 @@ export class AuthService {
     )
     .subscribe(res => this._currentUser.set(res?.user ?? null))
   }
-
+// Rafraîchissement pour l'interceptor
   refresh$() { // observable qui émet null en cas d'erreur
     return this.http.post(`${environment.apiUrl}/auth/refresh`,{}, { withCredentials: true } )
     .pipe( catchError(() => of(null)) )

@@ -1,25 +1,33 @@
 import { Routes } from '@angular/router';
 import { Login } from './shared/auth/components/login/login';
-import { Register } from './shared/auth/components/register/register';
 import { Home } from './pages/home/home';
+import { authGuard } from './shared/auth/auth-guard';
+import { AdminComponent } from './admin/admin/admin';
+import { adminGuard } from './admin/admin-guard';
+import { Register } from './shared/auth/components/register/register';
 import { NotFound } from './pages/not-found/not-found';
 
-
 export const routes: Routes = [
-    { 
-        path: '', 
-        redirectTo: 'login',
-        pathMatch: 'full' 
-    }, 
-    {
-        path: 'home', 
-        component: Home,
-        title: 'Home'
-    },
     {
         path: 'login',
         component: Login,
         title : 'Login'
+    }, 
+    {
+        path: 'home', 
+        component: Home,
+        canActivate: [authGuard],
+        title: 'Home'
+    },
+    {
+        path: 'admin',
+        component: AdminComponent,
+        canActivate: [authGuard, adminGuard]
+    },
+    { 
+        path: '', 
+        redirectTo: 'home',
+        pathMatch: 'full' 
     }, 
     // {
     //     path:'/register',
@@ -30,10 +38,10 @@ export const routes: Routes = [
     //     path:'/logout',
     //     component: Logout
     // },
-
     { 
         path: '**', 
-        component: NotFound
+        // component: NotFound
+        redirectTo:'home'
     }
 
 

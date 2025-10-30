@@ -44,15 +44,6 @@ await ensureAdmin()
 app.use(morgan('dev'))
 app.use(express.json())
 app.use(cookieParser())
-
-// Routes d'API
-app.use('/api/auth', authRouter)
-app.use('/api/users', verifyToken, usersRouter) // protégé
-app.use('/api/admin', verifyToken, requireAdmin, (req, res) => {
-	res.json({ message: 'Bienvenue admin' })
-})
-
-// Log des requêtes : Visualiser le flux de requêtes entre Angular et Express
 // Configuration CORS : autoriser le front Angular en HTTPS local
 app.use(
 	cors({
@@ -62,6 +53,13 @@ app.use(
 		allowedHeaders: ['Content-Type', 'Authorization']
 	})
 )
+
+// Routes d'API
+app.use('/api/auth', authRouter)
+app.use('/api/users', verifyToken, usersRouter) // protégé
+app.use('/api/admin', verifyToken, requireAdmin, (req, res) => {
+	res.json({ message: 'Bienvenue admin' })
+})
 
 // Routes publiques
 app.use('/api/public', publicRouter)
