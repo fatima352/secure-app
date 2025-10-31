@@ -23,13 +23,14 @@ export class User {
   loadAll(){
     this._isLoading.set(true)
     this._error.set(null)
-    this.http.get<{users : UserDto[]}>(
+    this.http.get<UserDto[]>(
       `${environment.apiUrl}/users`,
       {withCredentials:true}
     ).pipe(
-      tap(res=> {
-        if(res?.users){
-          this._users.set(res.users)
+      tap(users => {
+        this._users.set(users)
+        if(users){
+          this._users.set(users)
           console.log(`Utilisateurs bien récupérer`)
         }else{
           this._error.set('rien n\'est récuperer')

@@ -9,10 +9,10 @@ import { User } from '../../users/user';
   styleUrl: './admin.css'
 })
 export class AdminComponent {
-  private readonly usersvc = inject(User);
+  protected readonly usersvc = inject(User);
   readonly users = this.usersvc.users;
-  // Charge la liste à l’arrivée sur la page
+
   constructor() {
-  effect(() => this.usersvc.loadAll())
+    this.usersvc.loadAll();
   }
 }

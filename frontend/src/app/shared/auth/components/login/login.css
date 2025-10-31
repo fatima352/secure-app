@@ -1,4 +1,4 @@
-/* --- Style global --- */
+
 body {
   font-family: "Poppins", sans-serif;
   background: #f3f4f6;
@@ -9,7 +9,6 @@ body {
   margin: 0;
 }
 
-/* --- Formulaire --- */
 form {
   background: #fff;
   padding: 2rem 2.5rem;
@@ -21,7 +20,6 @@ form {
   gap: 1rem;
 }
 
-/* --- Labels et inputs --- */
 label {
   font-weight: 600;
   color: #333;
@@ -37,14 +35,13 @@ input {
 }
 
 input:focus {
-  border-color: #3b82f6;
-  box-shadow: 0 0 5px rgba(59, 130, 246, 0.4);
+  border-color: #1e293b;
+  box-shadow: 0 0 5px rgba(30, 41, 59, 0.4);
   outline: none;
 }
 
-/* --- Bouton --- */
 button {
-  background: #3b82f6;
+  background: #1e293b;
   color: white;
   border: none;
   padding: 0.8rem;
@@ -55,10 +52,9 @@ button {
 }
 
 button:hover {
-  background: #2563eb;
+  background: #1e293b;
 }
 
-/* --- Messages --- */
 .msg {
   margin-top: 1.2rem;
   text-align: center;

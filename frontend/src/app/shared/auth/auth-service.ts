@@ -1,6 +1,7 @@
-import { Injectable, inject, signal, computed } from '@angular/core';
+import { Injectable, inject, signal, computed, effect } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, finalize, of, tap } from 'rxjs'
+import { catchError, finalize, of, tap } from 'rxjs';
+import { Router } from '@angular/router';
 import { UserDto } from '../../interfaces/user-dto';
 import { environment } from '../../../environments/environment';
 // import { environment } from '@env/environment'
@@ -9,6 +10,7 @@ import { environment } from '../../../environments/environment';
 })
 export class AuthService {
   private readonly http = inject(HttpClient)
+  private readonly router = inject(Router)
 
   // signaux privé modifiables
   private readonly _currentUser= signal<UserDto | null>(null)
@@ -23,6 +25,14 @@ export class AuthService {
   //signaux calculer automatiquement quand currentUser change
   readonly isLoggedIn = computed(()=> this._currentUser() != null) //true si user connecter
   readonly isAdmin = computed(()=> this._currentUser()?.role === 'admin')//true si c'est un admin
+
+  constructor() {
+    effect(() => {
+      if (!this.isLoggedIn()) {
+        this.router.navigate(['/']);
+      }
+    });
+  }
 
   // connexion
 
