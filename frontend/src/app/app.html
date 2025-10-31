@@ -1,0 +1,22 @@
+<header>
+    <h1>Secure App</h1>
+    <nav>
+        <a routerLink="/home" routerLinkActive="active">Home</a>
+        @if(!authsvc.isLoggedIn()){
+        <a routerLink="/login" routerLinkActive="active">Login</a>
+        }@else{
+            <a class="nameuser">{{authsvc.currentUser()?.login}}</a>
+            @if(authsvc.isAdmin()){
+                <a routerLink="/admin" routerLinkActive="active">Admin</a>
+            }
+            <button (click)="authsvc.logout()">Se déconnecter</button>
+        }
+    </nav>
+</header>
+<main>
+    <router-outlet></router-outlet>
+</main>
+<footer>
+    <p>© 2025 Secure App - Tous droits réservés</p>
+</footer>
+

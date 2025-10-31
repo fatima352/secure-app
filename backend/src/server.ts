@@ -4,17 +4,29 @@ import express from 'express'
 import cors from 'cors'
 import morgan from 'morgan'
 import cookieParser from 'cookie-parser'
-import publicRouter from './routes/public.ts'
-import { ensureAdmin } from '../db/initAdmin.ts'
+import publicRouter from './routes/public.js'
+import { ensureAdmin } from '../db/initAdmin.js'
 import usersRouter from './routes/users.js'
-import authRouter from './routes/auth.ts'
-import { verifyToken } from './middleware/token-management.ts'
-import { requireAdmin } from './middleware/auth-admin.ts'
+import authRouter from './routes/auth.js'
+import { verifyToken } from './middleware/token-management.js'
+import { requireAdmin } from './middleware/auth-admin.js'
 import 'dotenv/config'
 
 
 // Création de l’application Express
 const app = express()
+
+// Configuration CORS : autoriser le front Angular en HTTPS
+app.use(
+	cors({
+		origin: 'https://localhost:8080',
+		credentials: true,
+		methods: ['GET', 'POST', 'PUT', 'DELETE'],
+		allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+		exposedHeaders: ['Set-Cookie'],
+		optionsSuccessStatus: 200
+	})
+)
 
 // Ajout manuel des principaux en-têtes HTTP de sécurité
 app.use((req, res, next) => {
@@ -45,25 +57,13 @@ app.use(morgan('dev'))
 app.use(express.json())
 app.use(cookieParser())
 
+
 // Routes d'API
 app.use('/api/auth', authRouter)
 app.use('/api/users', verifyToken, usersRouter) // protégé
-
-
 app.use('/api/admin', verifyToken, requireAdmin, (req, res) => {
 	res.json({ message: 'Bienvenue admin' })
 })
-
-// Log des requêtes : Visualiser le flux de requêtes entre Angular et Express
-// Configuration CORS : autoriser le front Angular en HTTPS local
-app.use(
-	cors({
-		origin: 'https://localhost:4200',
-		credentials: true,
-		methods: ['GET', 'POST', 'PUT', 'DELETE'],
-		allowedHeaders: ['Content-Type', 'Authorization']
-	})
-)
 
 // Routes publiques
 app.use('/api/public', publicRouter)

@@ -2,26 +2,31 @@
   // Visit https://aka.ms/tsconfig to read more about this file
   "compilerOptions": {
     // File Layout
-    // "rootDir": "./src",
-    // "outDir": "./dist",
+    "rootDirs": ["./src", "./db"],
+    "outDir": "./dist",
 
     // Environment Settings
     // See also https://aka.ms/tsconfig/module
     "module": "nodenext",
-    "target": "esnext",
+    "target": "es2022",
+    "lib": ["ES2022"],
     "types": ["node"], 
     "moduleResolution": "nodenext", 
-    "allowImportingTsExtensions": true,
-    "noEmit": true,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
     // For nodejs:
     // "lib": ["esnext"],
-    // "types": ["node"],
+
+
+
     // and npm install -D @types/node
 
     // Other Outputs
     "sourceMap": true,
-    "declaration": true,
-    "declarationMap": true,
+    // "declaration": true,
+    // "declarationMap": true,
 
     // Stricter Typechecking Options
     "noUncheckedIndexedAccess": true,
@@ -37,11 +42,15 @@
 
     // Recommended Options
     "strict": true,
-    "jsx": "react-jsx",
+    // "jsx": "react-jsx", Inutile pour un backend Node (c’est pour React). Tu peux le retirer.
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
+    "noUncheckedIndexedAccess": true,
     "noUncheckedSideEffectImports": true,
+    "noImplicitAny": true,
+    "noImplicitOverride": true,
     "moduleDetection": "force",
     "skipLibCheck": true,
-  }
+  },
+  "include": ["src/**/*", "db/**/*"], // Tous les fichiers TypeScript du dossier src sont inclus dans la compilation.
 }

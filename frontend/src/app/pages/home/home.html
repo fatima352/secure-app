@@ -1,0 +1,12 @@
+<body class="home-content">
+    @if(authsvc.isLoggedIn()){
+        <div class="welcome-message">
+            <h2>Bienvenue sur votre espace personnel</h2>
+        </div>
+    }@else{
+        <div class="login-prompt">
+            <h2>Bienvenue sur Secure App</h2>
+            <p>Veuillez vous connecter.</p>
+        </div>
+    }
+</body>
