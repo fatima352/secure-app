@@ -16,13 +16,15 @@ import 'dotenv/config'
 // Création de l’application Express
 const app = express()
 
-// Configuration CORS : autoriser le front Angular en HTTPS local
+// Configuration CORS : autoriser le front Angular en HTTPS
 app.use(
 	cors({
 		origin: 'https://localhost:8080',
 		credentials: true,
 		methods: ['GET', 'POST', 'PUT', 'DELETE'],
-		allowedHeaders: ['Content-Type', 'Authorization']
+		allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With'],
+		exposedHeaders: ['Set-Cookie'],
+		optionsSuccessStatus: 200
 	})
 )
 
