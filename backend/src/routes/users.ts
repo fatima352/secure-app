@@ -1,7 +1,7 @@
 import { Router } from 'express'
-import pool from '../db/database.ts'
+import pool from '../db/database.js'
 import bcrypt from 'bcryptjs'
-import { requireAdmin } from '../middleware/auth-admin.ts'
+import { requireAdmin } from '../middleware/auth-admin.js'
 
 const router = Router()
 
@@ -86,4 +86,4 @@ router.get('/', requireAdmin, async (_req, res) => {
 
 export default router
 
-// donc ici je cree mes routes pour l'user dans server.ts j'utilise es rout de user dans = app.use('/api/users', usersRouter) 
+// donc ici je cree mes routes pour l'user dans server.js j'utilise es rout de user dans = app.use('/api/users', usersRouter) 

@@ -11,4 +11,5 @@ import { AuthService } from './shared/auth/auth-service';
 })
 export class App {
   protected readonly authsvc = inject(AuthService);
+  
 }

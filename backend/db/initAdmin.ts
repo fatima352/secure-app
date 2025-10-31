@@ -1,4 +1,4 @@
-import pool from '../src/db/database.ts';
+import pool from '../src/db/database.js';
 import bcrypt from 'bcryptjs'
 export async function ensureAdmin() {
  const hash = await bcrypt.hash('admin', 10);
